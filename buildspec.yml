@@ -3,7 +3,7 @@ version: 0.2
 env:
   variables:
     PROJECT: ClassLibraryProject.csproj
-    PACKAGE_DIRECTORY: .\packages
+    PACKAGE_DIRECTORY: packages
     DOTNET_FRAMEWORK: 4.8
 phases:
   build:
