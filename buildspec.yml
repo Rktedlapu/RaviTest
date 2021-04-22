@@ -2,9 +2,13 @@ version: 0.2
 
 env:
   variables:
-    PROJECT: ClassLibraryProject
+    PROJECT: ClassLibraryProject.csproj
+    PACKAGE_DIRECTORY: .\packages
     DOTNET_FRAMEWORK: 4.8
 phases:
   build:
-    commands:      
-      - msbuild $env:PROJECT.csproj /p:TargetFrameworkVersion=v$env:DOTNET_FRAMEWORK /p:Configuration=Release /p:DeployIisAppPath="Default Web Site" /p:PackageAsSingleFile=false /p:OutDir=C:\codebuild\artifacts\ /t:Package
+    commands:  
+    - '& "C:\ProgramData\chocolatey\bin\NuGet.exe" restore $env:SOLUTION -PackagesDirectory $env:PACKAGE_DIRECTORY'
+    - '& "C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe" /p:FrameworkPathOverride="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v$env:DOTNET_FRAMEWORK" $env:PROJECT /p:DeployOnBuild=true /p:PublishProfile=HelloWorld.pubxml'  
+   
+   
